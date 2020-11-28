@@ -11,8 +11,8 @@ APPNAME?=cnfgtest
 LABEL?=$(APPNAME)
 APKFILE ?= $(APPNAME).apk
 PACKAGENAME?=org.yourorg.$(APPNAME)
-RAWDRAWANDROID?=.
-RAWDRAWANDROIDSRCS=$(RAWDRAWANDROID)/android_native_app_glue.c
+CANDROID?=.
+CANDROIDSRCS=$(CANDROID)/android_native_app_glue.c
 SRC?=test.c
 
 #We've tested it with android version 22, 24, 28, 29 and 30.
@@ -31,7 +31,7 @@ UNAME := $(shell uname)
 
 
 
-ANDROIDSRCS:= $(SRC) $(RAWDRAWANDROIDSRCS)
+ANDROIDSRCS:= $(SRC) $(CANDROIDSRCS)
 
 #if you have a custom Android Home location you can add it to this list.  
 #This makefile will select the first present folder.
@@ -81,7 +81,7 @@ CFLAGS+=-Os -DANDROID -DAPPNAME=\"$(APPNAME)\"
 ifeq (ANDROID_FULLSCREEN,y)
 CFLAGS +=-DANDROID_FULLSCREEN
 endif
-CFLAGS+= -I$(RAWDRAWANDROID)/rawdraw -I$(NDK)/sysroot/usr/include -I$(NDK)/sysroot/usr/include/android -fPIC -I$(RAWDRAWANDROID) -DANDROIDVERSION=$(ANDROIDVERSION)
+CFLAGS+= -I$(CANDROID)/rawdraw -I$(NDK)/sysroot/usr/include -I$(NDK)/sysroot/usr/include/android -fPIC -I$(CANDROID) -DANDROIDVERSION=$(ANDROIDVERSION)
 LDFLAGS += -lm -lGLESv3 -lEGL -landroid -llog
 LDFLAGS += -shared -uANativeActivity_onCreate
 
